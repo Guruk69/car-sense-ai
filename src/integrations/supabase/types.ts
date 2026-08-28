@@ -14,7 +14,399 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      damage_detections: {
+        Row: {
+          affected_part: string
+          bbox_height: number
+          bbox_width: number
+          bbox_x: number
+          bbox_y: number
+          confidence: number
+          created_at: string
+          damage_type: string
+          id: string
+          report_id: string
+          severity: string
+        }
+        Insert: {
+          affected_part: string
+          bbox_height: number
+          bbox_width: number
+          bbox_x: number
+          bbox_y: number
+          confidence: number
+          created_at?: string
+          damage_type: string
+          id?: string
+          report_id: string
+          severity: string
+        }
+        Update: {
+          affected_part?: string
+          bbox_height?: number
+          bbox_width?: number
+          bbox_x?: number
+          bbox_y?: number
+          confidence?: number
+          created_at?: string
+          damage_type?: string
+          id?: string
+          report_id?: string
+          severity?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "damage_detections_report_id_fkey"
+            columns: ["report_id"]
+            isOneToOne: false
+            referencedRelation: "damage_reports"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      damage_reports: {
+        Row: {
+          analysis_status: string
+          created_at: string
+          id: string
+          image_path: string | null
+          max_cost: number | null
+          min_cost: number | null
+          source: string
+          updated_at: string
+          user_id: string
+          vehicle_id: string | null
+        }
+        Insert: {
+          analysis_status?: string
+          created_at?: string
+          id?: string
+          image_path?: string | null
+          max_cost?: number | null
+          min_cost?: number | null
+          source?: string
+          updated_at?: string
+          user_id: string
+          vehicle_id?: string | null
+        }
+        Update: {
+          analysis_status?: string
+          created_at?: string
+          id?: string
+          image_path?: string | null
+          max_cost?: number | null
+          min_cost?: number | null
+          source?: string
+          updated_at?: string
+          user_id?: string
+          vehicle_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "damage_reports_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "vehicles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      emergency_events: {
+        Row: {
+          created_at: string
+          id: string
+          latitude: number
+          longitude: number
+          message: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          latitude: number
+          longitude: number
+          message?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          latitude?: number
+          longitude?: number
+          message?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      mechanics: {
+        Row: {
+          address: string
+          created_at: string
+          id: string
+          is_open: boolean
+          latitude: number
+          longitude: number
+          name: string
+          phone: string | null
+          rating: number | null
+          services: string[]
+        }
+        Insert: {
+          address: string
+          created_at?: string
+          id?: string
+          is_open?: boolean
+          latitude: number
+          longitude: number
+          name: string
+          phone?: string | null
+          rating?: number | null
+          services?: string[]
+        }
+        Update: {
+          address?: string
+          created_at?: string
+          id?: string
+          is_open?: boolean
+          latitude?: number
+          longitude?: number
+          name?: string
+          phone?: string | null
+          rating?: number | null
+          services?: string[]
+        }
+        Relationships: []
+      }
+      parking_locations: {
+        Row: {
+          created_at: string
+          id: string
+          latitude: number
+          longitude: number
+          name: string
+          note: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          latitude: number
+          longitude: number
+          name: string
+          note?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          latitude?: number
+          longitude?: number
+          name?: string
+          note?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      repair_costs: {
+        Row: {
+          created_at: string
+          damage_type: string
+          id: string
+          max_cost: number
+          min_cost: number
+          service_type: string
+          severity: string
+          updated_at: string
+          vehicle_part: string
+        }
+        Insert: {
+          created_at?: string
+          damage_type: string
+          id?: string
+          max_cost: number
+          min_cost: number
+          service_type: string
+          severity: string
+          updated_at?: string
+          vehicle_part: string
+        }
+        Update: {
+          created_at?: string
+          damage_type?: string
+          id?: string
+          max_cost?: number
+          min_cost?: number
+          service_type?: string
+          severity?: string
+          updated_at?: string
+          vehicle_part?: string
+        }
+        Relationships: []
+      }
+      repair_guides: {
+        Row: {
+          content: string
+          created_at: string
+          damage_type: string
+          id: string
+          severity: string
+          title: string
+          video_url: string | null
+        }
+        Insert: {
+          content: string
+          created_at?: string
+          damage_type: string
+          id?: string
+          severity: string
+          title: string
+          video_url?: string | null
+        }
+        Update: {
+          content?: string
+          created_at?: string
+          damage_type?: string
+          id?: string
+          severity?: string
+          title?: string
+          video_url?: string | null
+        }
+        Relationships: []
+      }
+      service_reminders: {
+        Row: {
+          completed: boolean
+          created_at: string
+          due_date: string | null
+          due_mileage: number | null
+          id: string
+          service_type: string
+          updated_at: string
+          user_id: string
+          vehicle_id: string | null
+        }
+        Insert: {
+          completed?: boolean
+          created_at?: string
+          due_date?: string | null
+          due_mileage?: number | null
+          id?: string
+          service_type: string
+          updated_at?: string
+          user_id: string
+          vehicle_id?: string | null
+        }
+        Update: {
+          completed?: boolean
+          created_at?: string
+          due_date?: string | null
+          due_mileage?: number | null
+          id?: string
+          service_type?: string
+          updated_at?: string
+          user_id?: string
+          vehicle_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "service_reminders_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "vehicles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      vehicle_tips: {
+        Row: {
+          category: string
+          content: string
+          created_at: string
+          id: string
+          title: string
+        }
+        Insert: {
+          category: string
+          content: string
+          created_at?: string
+          id?: string
+          title: string
+        }
+        Update: {
+          category?: string
+          content?: string
+          created_at?: string
+          id?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      vehicles: {
+        Row: {
+          brand: string
+          created_at: string
+          current_mileage: number | null
+          id: string
+          model: string
+          nickname: string
+          registration_number: string | null
+          updated_at: string
+          user_id: string
+          year: number | null
+        }
+        Insert: {
+          brand: string
+          created_at?: string
+          current_mileage?: number | null
+          id?: string
+          model: string
+          nickname: string
+          registration_number?: string | null
+          updated_at?: string
+          user_id: string
+          year?: number | null
+        }
+        Update: {
+          brand?: string
+          created_at?: string
+          current_mileage?: number | null
+          id?: string
+          model?: string
+          nickname?: string
+          registration_number?: string | null
+          updated_at?: string
+          user_id?: string
+          year?: number | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
