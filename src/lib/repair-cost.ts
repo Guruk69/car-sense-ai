@@ -55,7 +55,10 @@ export function estimateRepairCost(
   detections: DamageDetection[],
   rows: CostRow[],
 ): RepairEstimate {
-  const totals = { showroom: [0, 0], local_mechanic: [0, 0] } as Record<string, number[]>;
+  const totals: Record<"showroom" | "local_mechanic", { min: number; max: number }> = {
+    showroom: { min: 0, max: 0 },
+    local_mechanic: { min: 0, max: 0 },
+  };
   let matched = false;
 
   for (const detection of detections) {
@@ -68,13 +71,13 @@ export function estimateRepairCost(
             ? 1
             : SEVERITY_MULTIPLIER[detection.severity] /
               (SEVERITY_MULTIPLIER[row.severity as Severity] ?? 1);
-        totals[serviceType]![0] += Math.round(row.min_cost * factor);
-        totals[serviceType]![1] += Math.round(row.max_cost * factor);
+        totals[serviceType].min += Math.round(row.min_cost * factor);
+        totals[serviceType].max += Math.round(row.max_cost * factor);
       } else {
         const base = BASELINE[detection.class] ?? BASELINE['scratch']!;
         const factor = SEVERITY_MULTIPLIER[detection.severity];
-        totals[serviceType]![0] += Math.round(base[serviceType][0] * factor);
-        totals[serviceType]![1] += Math.round(base[serviceType][1] * factor);
+        totals[serviceType].min += Math.round(base[serviceType][0] * factor);
+        totals[serviceType].max += Math.round(base[serviceType][1] * factor);
       }
     }
   }
@@ -82,10 +85,10 @@ export function estimateRepairCost(
   const round = (value: number) => Math.round(value / 100) * 100;
 
   return {
-    showroom: { min: round(totals['showroom']![0]!), max: round(totals['showroom']![1]!) },
+    showroom: { min: round(totals.showroom.min), max: round(totals.showroom.max) },
     local_mechanic: {
-      min: round(totals['local_mechanic']![0]!),
-      max: round(totals['local_mechanic']![1]!),
+      min: round(totals.local_mechanic.min),
+      max: round(totals.local_mechanic.max),
     },
     matched,
   };
