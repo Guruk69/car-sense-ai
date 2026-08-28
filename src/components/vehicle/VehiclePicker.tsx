@@ -37,7 +37,7 @@ export function VehiclePicker({
 
   return (
     <div className="flex items-center gap-2">
-      <Select value={selectedId ?? undefined} onValueChange={onSelect}>
+      <Select value={selectedId ?? ""} onValueChange={onSelect}>
         <SelectTrigger className="min-h-11 flex-1 bg-surface" aria-label="Current vehicle">
           <span className="flex items-center gap-2">
             <Car className="size-4 text-muted-foreground" aria-hidden />
