@@ -15,7 +15,11 @@ import { Route as SignupRouteImport } from './routes/signup'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
 import { Route as AuthenticatedMechanicsRouteImport } from './routes/_authenticated/mechanics'
 import { Route as AuthenticatedParkingRouteImport } from './routes/_authenticated/parking'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated/profile'
 import { Route as AuthenticatedScanRouteImport } from './routes/_authenticated/scan'
+import { Route as AuthenticatedServiceRouteImport } from './routes/_authenticated/service'
+import { Route as AuthenticatedSosRouteImport } from './routes/_authenticated/sos'
+import { Route as AuthenticatedVehiclesRouteImport } from './routes/_authenticated/vehicles'
 import { Route as AuthenticatedAnalysisReportIdRouteImport } from './routes/_authenticated/analysis.$reportId'
 import { Route as AuthenticatedHistoryIndexRouteImport } from './routes/_authenticated/history.index'
 import { Route as AuthenticatedHistoryReportIdRouteImport } from './routes/_authenticated/history.$reportId'
@@ -49,9 +53,29 @@ const AuthenticatedParkingRoute = AuthenticatedParkingRouteImport.update({
   path: '/parking',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedScanRoute = AuthenticatedScanRouteImport.update({
   id: '/scan',
   path: '/scan',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedServiceRoute = AuthenticatedServiceRouteImport.update({
+  id: '/service',
+  path: '/service',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSosRoute = AuthenticatedSosRouteImport.update({
+  id: '/sos',
+  path: '/sos',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedVehiclesRoute = AuthenticatedVehiclesRouteImport.update({
+  id: '/vehicles',
+  path: '/vehicles',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedAnalysisReportIdRoute =
@@ -79,7 +103,11 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/mechanics': typeof AuthenticatedMechanicsRoute
   '/parking': typeof AuthenticatedParkingRoute
+  '/profile': typeof AuthenticatedProfileRoute
   '/scan': typeof AuthenticatedScanRoute
+  '/service': typeof AuthenticatedServiceRoute
+  '/sos': typeof AuthenticatedSosRoute
+  '/vehicles': typeof AuthenticatedVehiclesRoute
   '/analysis/$reportId': typeof AuthenticatedAnalysisReportIdRoute
   '/history/$reportId': typeof AuthenticatedHistoryReportIdRoute
   '/history/': typeof AuthenticatedHistoryIndexRoute
@@ -89,7 +117,11 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/mechanics': typeof AuthenticatedMechanicsRoute
   '/parking': typeof AuthenticatedParkingRoute
+  '/profile': typeof AuthenticatedProfileRoute
   '/scan': typeof AuthenticatedScanRoute
+  '/service': typeof AuthenticatedServiceRoute
+  '/sos': typeof AuthenticatedSosRoute
+  '/vehicles': typeof AuthenticatedVehiclesRoute
   '/': typeof AuthenticatedIndexRoute
   '/analysis/$reportId': typeof AuthenticatedAnalysisReportIdRoute
   '/history/$reportId': typeof AuthenticatedHistoryReportIdRoute
@@ -102,7 +134,11 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/_authenticated/mechanics': typeof AuthenticatedMechanicsRoute
   '/_authenticated/parking': typeof AuthenticatedParkingRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
   '/_authenticated/scan': typeof AuthenticatedScanRoute
+  '/_authenticated/service': typeof AuthenticatedServiceRoute
+  '/_authenticated/sos': typeof AuthenticatedSosRoute
+  '/_authenticated/vehicles': typeof AuthenticatedVehiclesRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/analysis/$reportId': typeof AuthenticatedAnalysisReportIdRoute
   '/_authenticated/history/$reportId': typeof AuthenticatedHistoryReportIdRoute
@@ -116,7 +152,11 @@ export interface FileRouteTypes {
     | '/signup'
     | '/mechanics'
     | '/parking'
+    | '/profile'
     | '/scan'
+    | '/service'
+    | '/sos'
+    | '/vehicles'
     | '/analysis/$reportId'
     | '/history/$reportId'
     | '/history/'
@@ -126,7 +166,11 @@ export interface FileRouteTypes {
     | '/signup'
     | '/mechanics'
     | '/parking'
+    | '/profile'
     | '/scan'
+    | '/service'
+    | '/sos'
+    | '/vehicles'
     | '/'
     | '/analysis/$reportId'
     | '/history/$reportId'
@@ -138,7 +182,11 @@ export interface FileRouteTypes {
     | '/signup'
     | '/_authenticated/mechanics'
     | '/_authenticated/parking'
+    | '/_authenticated/profile'
     | '/_authenticated/scan'
+    | '/_authenticated/service'
+    | '/_authenticated/sos'
+    | '/_authenticated/vehicles'
     | '/_authenticated/'
     | '/_authenticated/analysis/$reportId'
     | '/_authenticated/history/$reportId'
@@ -195,11 +243,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedParkingRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/scan': {
       id: '/_authenticated/scan'
       path: '/scan'
       fullPath: '/scan'
       preLoaderRoute: typeof AuthenticatedScanRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/service': {
+      id: '/_authenticated/service'
+      path: '/service'
+      fullPath: '/service'
+      preLoaderRoute: typeof AuthenticatedServiceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/sos': {
+      id: '/_authenticated/sos'
+      path: '/sos'
+      fullPath: '/sos'
+      preLoaderRoute: typeof AuthenticatedSosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/vehicles': {
+      id: '/_authenticated/vehicles'
+      path: '/vehicles'
+      fullPath: '/vehicles'
+      preLoaderRoute: typeof AuthenticatedVehiclesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/analysis/$reportId': {
@@ -229,7 +305,11 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedMechanicsRoute: typeof AuthenticatedMechanicsRoute
   AuthenticatedParkingRoute: typeof AuthenticatedParkingRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
   AuthenticatedScanRoute: typeof AuthenticatedScanRoute
+  AuthenticatedServiceRoute: typeof AuthenticatedServiceRoute
+  AuthenticatedSosRoute: typeof AuthenticatedSosRoute
+  AuthenticatedVehiclesRoute: typeof AuthenticatedVehiclesRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAnalysisReportIdRoute: typeof AuthenticatedAnalysisReportIdRoute
   AuthenticatedHistoryReportIdRoute: typeof AuthenticatedHistoryReportIdRoute
@@ -239,7 +319,11 @@ interface AuthenticatedRouteRouteChildren {
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedMechanicsRoute: AuthenticatedMechanicsRoute,
   AuthenticatedParkingRoute: AuthenticatedParkingRoute,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
   AuthenticatedScanRoute: AuthenticatedScanRoute,
+  AuthenticatedServiceRoute: AuthenticatedServiceRoute,
+  AuthenticatedSosRoute: AuthenticatedSosRoute,
+  AuthenticatedVehiclesRoute: AuthenticatedVehiclesRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAnalysisReportIdRoute: AuthenticatedAnalysisReportIdRoute,
   AuthenticatedHistoryReportIdRoute: AuthenticatedHistoryReportIdRoute,
