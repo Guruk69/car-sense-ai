@@ -13,8 +13,11 @@ import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as SignupRouteImport } from './routes/signup'
 import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedMechanicsRouteImport } from './routes/_authenticated/mechanics'
+import { Route as AuthenticatedParkingRouteImport } from './routes/_authenticated/parking'
 import { Route as AuthenticatedScanRouteImport } from './routes/_authenticated/scan'
 import { Route as AuthenticatedAnalysisReportIdRouteImport } from './routes/_authenticated/analysis.$reportId'
+import { Route as AuthenticatedHistoryIndexRouteImport } from './routes/_authenticated/history.index'
 import { Route as AuthenticatedHistoryReportIdRouteImport } from './routes/_authenticated/history.$reportId'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -36,6 +39,16 @@ const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
   path: '/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedMechanicsRoute = AuthenticatedMechanicsRouteImport.update({
+  id: '/mechanics',
+  path: '/mechanics',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedParkingRoute = AuthenticatedParkingRouteImport.update({
+  id: '/parking',
+  path: '/parking',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedScanRoute = AuthenticatedScanRouteImport.update({
   id: '/scan',
   path: '/scan',
@@ -45,6 +58,12 @@ const AuthenticatedAnalysisReportIdRoute =
   AuthenticatedAnalysisReportIdRouteImport.update({
     id: '/analysis/$reportId',
     path: '/analysis/$reportId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedHistoryIndexRoute =
+  AuthenticatedHistoryIndexRouteImport.update({
+    id: '/history/',
+    path: '/history/',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
 const AuthenticatedHistoryReportIdRoute =
@@ -58,27 +77,36 @@ export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/mechanics': typeof AuthenticatedMechanicsRoute
+  '/parking': typeof AuthenticatedParkingRoute
   '/scan': typeof AuthenticatedScanRoute
   '/analysis/$reportId': typeof AuthenticatedAnalysisReportIdRoute
   '/history/$reportId': typeof AuthenticatedHistoryReportIdRoute
+  '/history/': typeof AuthenticatedHistoryIndexRoute
 }
 export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/mechanics': typeof AuthenticatedMechanicsRoute
+  '/parking': typeof AuthenticatedParkingRoute
   '/scan': typeof AuthenticatedScanRoute
   '/': typeof AuthenticatedIndexRoute
   '/analysis/$reportId': typeof AuthenticatedAnalysisReportIdRoute
   '/history/$reportId': typeof AuthenticatedHistoryReportIdRoute
+  '/history': typeof AuthenticatedHistoryIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/login': typeof LoginRoute
   '/signup': typeof SignupRoute
+  '/_authenticated/mechanics': typeof AuthenticatedMechanicsRoute
+  '/_authenticated/parking': typeof AuthenticatedParkingRoute
   '/_authenticated/scan': typeof AuthenticatedScanRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
   '/_authenticated/analysis/$reportId': typeof AuthenticatedAnalysisReportIdRoute
   '/_authenticated/history/$reportId': typeof AuthenticatedHistoryReportIdRoute
+  '/_authenticated/history/': typeof AuthenticatedHistoryIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -86,26 +114,35 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/signup'
+    | '/mechanics'
+    | '/parking'
     | '/scan'
     | '/analysis/$reportId'
     | '/history/$reportId'
+    | '/history/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/login'
     | '/signup'
+    | '/mechanics'
+    | '/parking'
     | '/scan'
     | '/'
     | '/analysis/$reportId'
     | '/history/$reportId'
+    | '/history'
   id:
     | '__root__'
     | '/_authenticated'
     | '/login'
     | '/signup'
+    | '/_authenticated/mechanics'
+    | '/_authenticated/parking'
     | '/_authenticated/scan'
     | '/_authenticated/'
     | '/_authenticated/analysis/$reportId'
     | '/_authenticated/history/$reportId'
+    | '/_authenticated/history/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -144,6 +181,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/mechanics': {
+      id: '/_authenticated/mechanics'
+      path: '/mechanics'
+      fullPath: '/mechanics'
+      preLoaderRoute: typeof AuthenticatedMechanicsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/parking': {
+      id: '/_authenticated/parking'
+      path: '/parking'
+      fullPath: '/parking'
+      preLoaderRoute: typeof AuthenticatedParkingRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/scan': {
       id: '/_authenticated/scan'
       path: '/scan'
@@ -158,6 +209,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAnalysisReportIdRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/history/': {
+      id: '/_authenticated/history/'
+      path: '/history'
+      fullPath: '/history/'
+      preLoaderRoute: typeof AuthenticatedHistoryIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/history/$reportId': {
       id: '/_authenticated/history/$reportId'
       path: '/history/$reportId'
@@ -169,17 +227,23 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteRouteChildren {
+  AuthenticatedMechanicsRoute: typeof AuthenticatedMechanicsRoute
+  AuthenticatedParkingRoute: typeof AuthenticatedParkingRoute
   AuthenticatedScanRoute: typeof AuthenticatedScanRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
   AuthenticatedAnalysisReportIdRoute: typeof AuthenticatedAnalysisReportIdRoute
   AuthenticatedHistoryReportIdRoute: typeof AuthenticatedHistoryReportIdRoute
+  AuthenticatedHistoryIndexRoute: typeof AuthenticatedHistoryIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedMechanicsRoute: AuthenticatedMechanicsRoute,
+  AuthenticatedParkingRoute: AuthenticatedParkingRoute,
   AuthenticatedScanRoute: AuthenticatedScanRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
   AuthenticatedAnalysisReportIdRoute: AuthenticatedAnalysisReportIdRoute,
   AuthenticatedHistoryReportIdRoute: AuthenticatedHistoryReportIdRoute,
+  AuthenticatedHistoryIndexRoute: AuthenticatedHistoryIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
